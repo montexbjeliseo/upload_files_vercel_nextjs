@@ -5,19 +5,25 @@ export default async function handler(
     request: NextApiRequest,
     response: NextApiResponse,
 ) {
+    console.log(process.env.BLOB_READ_WRITE_TOKEN);
     const body = request.body as HandleUploadBody;
 
     try {
+        
         const jsonResponse = await handleUpload({
             body,
             request,
+            token: process.env.BLOB_READ_WRITE_TOKEN as string,
             onBeforeGenerateToken: async (
                 pathname,
                 /* clientPayload */
+
             ) => {
                 // Generate a client token for the browser to upload the file
                 // ⚠️ Authenticate and authorize users before generating the token.
                 // Otherwise, you're allowing anonymous uploads.
+
+                
 
                 return {
                     allowedContentTypes: ['image/jpeg', 'image/png', 'image/gif'],
